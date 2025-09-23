@@ -27,7 +27,8 @@ void applyGrayscale(Image &img) {
             unsigned char g = img.getPixel(x, y, 1);
             unsigned char b = img.getPixel(x, y, 2);
 
-            unsigned char gray = static_cast<unsigned char>((r + g + b) / 3);
+            unsigned char gray = (r + g + b) / 3;
+
 
             img.setPixel(x, y, 0, gray);
             img.setPixel(x, y, 1, gray);
@@ -36,8 +37,102 @@ void applyGrayscale(Image &img) {
     }
     cout << "[Grayscale filter is applied]\n";
 }
+// Resize image
+Image resizeImage(const Image &src, int new_W, int new_H) {
+    Image resized(new_W, new_H);
+
+    for (int y = 0; y < new_H; y++) {
+        for (int x = 0; x < new_W; x++) {
+            int srcX = x * src.width / new_W;
+            int srcY = y * src.height / new_H;
+
+            for (int c = 0; c < 3; c++) {
+                unsigned char val = src.getPixel(srcX, srcY, c);
+                resized.setPixel(x, y, c, val);
+            }
+        }
+    }
+    return resized;
+}
+
+// ===== Filter 4: Merge Two Images =====
+void applyMerge(Image &img) {
+    string filename2;
+    cout << "Enter the filename of the second image: ";
+    cin >> filename2;
+
+    try {
+        Image img2;
+        img2.loadNewImage(filename2);
+        if (img.width == img2.width && img.height == img2.height) {
+            for (int y = 0; y < img.height; y++) {
+                for (int x = 0; x < img.width; x++) {
+                    for (int c = 0; c < 3; c++) {
+                        unsigned char p1 = img.getPixel(x, y, c);
+                        unsigned char p2 = img2.getPixel(x, y, c);
+                        unsigned char merged = (p1 + p2) / 2;
+                        img.setPixel(x, y, c, merged);
+                    }
+                }
+            }
+            cout << "[Merge filter applied successfully (same size)]\n";
+            return;
+        }
+        cout << "The two images have different sizes.\n";
+        cout << "Choose merge option:\n";
+        cout << "1. Resize smaller image(s) to match the bigger\n";
+        cout << "2. Merge only the common area\n";
+        int opt; cin >> opt;
+
+        if (opt == 1) {
+            int newW = max(img.width, img2.width);
+            int newH = max(img.height, img2.height);
+
+            Image resized1 = resizeImage(img, newW, newH);
+            Image resized2 = resizeImage(img2, newW, newH);
+
+            for (int y = 0; y < newH; y++) {
+                for (int x = 0; x < newW; x++) {
+                    for (int c = 0; c < 3; c++) {
+                        unsigned char p1 = resized1.getPixel(x, y, c);
+                        unsigned char p2 = resized2.getPixel(x, y, c);
+                        unsigned char merged = (p1 + p2) / 2;
+                        resized1.setPixel(x, y, c, merged);
+                    }
+                }
+            }
+
+            img = resized1;
+            cout << "[Merge filter applied with resize]\n";
+        }
+        else if (opt == 2) {
+            int minW = min(img.width, img2.width);
+            int minH = min(img.height, img2.height);
+
+            for (int y = 0; y < minH; y++) {
+                for (int x = 0; x < minW; x++) {
+                    for (int c = 0; c < 3; c++) {
+                        unsigned char p1 = img.getPixel(x, y, c);
+                        unsigned char p2 = img2.getPixel(x, y, c);
+                        unsigned char merged = (p1 + p2) / 2;
+                        img.setPixel(x, y, c, merged);
+                    }
+                }
+            }
+            cout << "[Merge filter applied on common area]\n";
+        }
+        else {
+            cout << "Invalid option. Merge canceled.\n";
+        }
+
+    } catch (exception &e) {
+        cerr << "Error loading second image: " << e.what() << endl;
+    }
+}
+
+
 int main() {
-    Image img;        // current image
+    Image img;
     bool loaded = false;
     bool modified = false;
     int choice;
@@ -56,7 +151,7 @@ int main() {
         }
     }
 
-    // ====== STEP 2: Main Loop ======
+    // ====== STEP 2: Menu======
     while (true) {
         displayMenu();
         cin >> choice;
@@ -97,7 +192,7 @@ int main() {
             modified = true;
         }
         else if (choice == 5) {
-            cout << "[Merge filter is applied]\n";
+            applyMerge(img);
             modified = true;
         }
         else if (choice == 6) {
@@ -108,7 +203,7 @@ int main() {
             cout << "[Rotate filter is applied]\n";
             modified = true;
         }
-        else if (choice == 8) { // Save
+        else if (choice == 8) {
             string out;
             cout << "Enter filename (with extension .jpg/.png/.bmp): ";
             cin >> out;
@@ -120,7 +215,7 @@ int main() {
                 cerr << "Error: " << e.what() << endl;
             }
         }
-        else if (choice == 9) { // Exit
+        else if (choice == 9) {
             if (modified) {
                 cout << "Do you want to save before exit? (y/n): ";
                 char ans; cin >> ans;
@@ -146,3 +241,4 @@ int main() {
 
     return 0;
 }
+
