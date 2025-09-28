@@ -1,4 +1,3 @@
-k
 #include <iostream>
 #include <string>
 #include "Image_Class.h"
@@ -37,6 +36,32 @@ void applyGrayscale(Image &img) {
         }
     }
     cout << "[Grayscale filter is applied]\n";
+}
+// ===== Filter 2: Black and White =====
+void applyblack_white(Image &img) {
+    unsigned int threshold = 128;
+
+    for (int i = 0; i < img.width; ++i) {
+        for (int j = 0; j < img.height; ++j) {
+            unsigned int avg = 0;
+
+            for (int k = 0; k < 3; ++k) {
+                avg += img(i, j, k);
+            }
+            avg /= 3;
+            unsigned char colour;
+            if (avg >= threshold) {
+                colour = 255;
+            }
+            else {
+                colour = 0;
+            }
+            img(i, j, 0) = colour;
+            img(i, j, 1) = colour;
+            img(i, j, 2) = colour;
+        }
+    }
+    cout << "[Black & White filter is applied]\n";
 }
 // Resize image
 Image resizeImage(const Image &src, int new_W, int new_H) {
@@ -130,8 +155,42 @@ void applyMerge(Image &img) {
         cerr << "Error loading second image: " << e.what() << endl;
     }
 }
-
-
+// ===== Filter 5: Flip Image =====
+void applyFlip(Image &img) {
+    cout << "Choose flip type:\n";
+    cout << "1 - Horizontal Flip (Left Right)\n";
+    cout << "2 - Vertical Flip (Top Bottom)\n";
+    cout << "Enter choice: ";
+    int choice;
+    cin >> choice;
+    Image flipped_pic(img.width, img.height);
+    if (choice == 1) { // Horizontal flip
+        for (int i = 0; i < img.width; ++i) {
+            for (int j = 0; j < img.height; ++j) {
+                for (int k = 0; k < 3; ++k) {
+                    unsigned char val = img.getPixel(i, j, k);
+                    flipped_pic.setPixel(img.width - 1 - i, j, k, val);
+                }
+            }
+        }
+    }
+    else if (choice == 2) { // Vertical flip
+        for (int i = 0; i < img.width; ++i) {
+            for (int j = 0; j < img.height; ++j) {
+                for (int k = 0; k < 3; ++k) {
+                    unsigned char val = img.getPixel(i, j, k);
+                    flipped_pic.setPixel(i, img.height - 1 - j, k, val);
+                }
+            }
+        }
+    }
+    else {
+        cout << "Invalid choice. Flip canceled.\n";
+        return;
+    }
+    img = flipped_pic;
+    cout << "[Flip filter is applied]\n";
+}
 int main() {
     Image img;
     bool loaded = false;
@@ -185,7 +244,7 @@ int main() {
             modified = true;
         }
         else if (choice == 3) {
-            cout << "[Black & White filter is applied]\n";
+            applyblack_white(img);
             modified = true;
         }
         else if (choice == 4) {
@@ -197,7 +256,7 @@ int main() {
             modified = true;
         }
         else if (choice == 6) {
-            cout << "[Flip filter is applied]\n";
+            applyFlip(img);
             modified = true;
         }
         else if (choice == 7) {
@@ -242,6 +301,7 @@ int main() {
 
     return 0;
 }
+
 
 
 
