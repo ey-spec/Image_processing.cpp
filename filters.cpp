@@ -1,3 +1,4 @@
+karim ashraf 
 #include <iostream>
 #include <string>
 #include "Image_Class.h"
@@ -241,3 +242,4 @@ int main() {
 
     return 0;
 }
+
