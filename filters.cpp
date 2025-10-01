@@ -3,7 +3,7 @@
 #include "Image_Class.h"
 using namespace std;
 
-void displayMenu() {
+void Display_Menu() {
     cout << "\n=== Image Processing Menu ===\n";
     cout << "1. Load New Image\n";
     cout << "2. Apply Grayscale Filter\n";
@@ -16,8 +16,8 @@ void displayMenu() {
     cout << "9. Exit\n";
     cout << "Choose option: ";
 }
-// ===== Filter 1: Grayscale Conversion =====
-void applyGrayscale(Image &img) {
+//Filter 1: Grayscale Filter
+void Apply_Grayscale(Image &img) {
     int width = img.width;
     int height = img.height;
 
@@ -37,8 +37,8 @@ void applyGrayscale(Image &img) {
     }
     cout << "[Grayscale filter is applied]\n";
 }
-// ===== Filter 2: Black and White =====
-void applyblack_white(Image &img) {
+//Filter 2: Black and White Filter
+void Apply_black_white(Image &img) {
     unsigned int threshold = 128;
 
     for (int i = 0; i < img.width; ++i) {
@@ -63,6 +63,7 @@ void applyblack_white(Image &img) {
     }
     cout << "[Black & White filter is applied]\n";
 }
+//Filter 3:Invert Filter
 
 void Apply_Invert_filter(Image &img){
 
@@ -77,6 +78,7 @@ void Apply_Invert_filter(Image &img){
             img(i, j, 2) = 255-b;
         }
     }
+    cout << "[Invert filter is applied]\n";
 }
 
 // Resize image
@@ -97,8 +99,8 @@ Image resizeImage(const Image &src, int new_W, int new_H) {
     return resized;
 }
 
-// ===== Filter 4: Merge Two Images =====
-void applyMerge(Image &img) {
+// Filter 4: Merge Two Images 
+void Apply_Merge(Image &img) {
     string filename2;
     cout << "Enter the filename of the second image: ";
     cin >> filename2;
@@ -122,7 +124,7 @@ void applyMerge(Image &img) {
         }
         cout << "The two images have different sizes.\n";
         cout << "Choose merge option:\n";
-        cout << "1. Resize smaller image(s) to match the bigger\n";
+        cout << "1. Resize smaller image to match the bigger\n";
         cout << "2. Merge only the common area\n";
         int opt; cin >> opt;
 
@@ -171,8 +173,8 @@ void applyMerge(Image &img) {
         cerr << "Error loading second image: " << e.what() << endl;
     }
 }
-// ===== Filter 5: Flip Image =====
-void applyFlip(Image &img) {
+//Filter 5: Flip Image
+void Apply_Flip(Image &img) {
     cout << "Choose flip type:\n";
     cout << "1 - Horizontal Flip (Left Right)\n";
     cout << "2 - Vertical Flip (Top Bottom)\n";
@@ -207,6 +209,7 @@ void applyFlip(Image &img) {
     img = flipped_pic;
     cout << "[Flip filter is applied]\n";
 }
+//Filter 6: Rotate Image
 
 void Apply_rotate_filter(Image &img , int angle){
     int width = img.width;
@@ -252,6 +255,7 @@ void Apply_rotate_filter(Image &img , int angle){
     }
 
     img = rotated_image; 
+    cout << "[Rotate filter is applied]\n";
 }
 
 
@@ -261,7 +265,7 @@ int main() {
     bool modified = false;
     int choice;
 
-    // ====== STEP 1: Load initial image ======
+    //Load first image 
     while (!loaded) {
         string filename;
         cout << "Enter the image filename to start: ";
@@ -275,9 +279,9 @@ int main() {
         }
     }
 
-    // ====== STEP 2: Menu======
+    // Menu
     while (true) {
-        displayMenu();
+        Display_Menu();
         cin >> choice;
 
         if (choice == 1) { // Load new image
@@ -304,27 +308,27 @@ int main() {
             }
         }
         else if (choice == 2) {
-            applyGrayscale(img);
+            Apply_Grayscale(img);
             modified = true;
         }
         else if (choice == 3) {
-            applyblack_white(img);
+            Apply_black_white(img);
             modified = true;
         }
         else if (choice == 4) {
-            cout << "[Invert filter is applied]\n";
+            Apply_Invert_filter(img);
             modified = true;
         }
         else if (choice == 5) {
-            applyMerge(img);
+            Apply_Merge(img);
             modified = true;
         }
         else if (choice == 6) {
-            applyFlip(img);
+            Apply_Flip(img);
             modified = true;
         }
         else if (choice == 7) {
-            cout << "[Rotate filter is applied]\n";
+            Apply_rotate_filter(img);
             modified = true;
         }
         else if (choice == 8) {
@@ -355,16 +359,16 @@ int main() {
                     }
                 }
             }
-            cout << "Exiting program...\n";
+            cout << "Exiting program.\n";
             break;
         }
         else {
             cout << "Invalid choice. Try again.\n";
         }
     }
-
     return 0;
 }
+
 
 
 
