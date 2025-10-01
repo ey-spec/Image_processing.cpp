@@ -63,6 +63,22 @@ void applyblack_white(Image &img) {
     }
     cout << "[Black & White filter is applied]\n";
 }
+
+void Apply_Invert_filter(Image &img){
+
+    for(int i = 0 ; i < img.width ; i++ ){
+        for(int j =0 ; j < img.height ; j++){
+            unsigned char r = img(i,j,0);
+            unsigned char g = img(i,j,1);
+            unsigned char b = img(i,j,2);
+
+            img(i, j, 0) = 255-r;
+            img(i, j, 1) = 255-g;
+            img(i, j, 2) = 255-b;
+        }
+    }
+}
+
 // Resize image
 Image resizeImage(const Image &src, int new_W, int new_H) {
     Image resized(new_W, new_H);
@@ -191,6 +207,54 @@ void applyFlip(Image &img) {
     img = flipped_pic;
     cout << "[Flip filter is applied]\n";
 }
+
+void Apply_rotate_filter(Image &img , int angle){
+    int width = img.width;
+    int height = img.height;
+
+    Image rotated_image;
+
+    if (angle == 90){
+        rotated_image = Image(height,width);
+        for(int x = 0; x < width; x++){
+            for(int y = 0; y < height; y++){
+                for(int z = 0; z < 3; z++){
+                    rotated_image (y, width - 1 - x, z) = img (x, y, z);
+                }
+            }
+        } 
+    }
+
+
+    else if (angle == 180) {
+        rotated_image = Image(width, height); 
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int z = 0; z < 3; z++) {
+                    rotated_image (width - 1 - x, height - 1 - y, z) = img(x, y, z);
+                }
+            }
+        }
+    } 
+    else if (angle == 270) {
+        rotated_image = Image(height, width);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int z = 0; z < 3; z++) {
+                    rotated_image(height - 1 - y, x, z) = img(x, y, z);
+                }
+            }
+        }
+    } 
+    else {
+        cout << "Invalid angle, please use 90, 180, or 270." << "\n";
+        return;
+    }
+
+    img = rotated_image; 
+}
+
+
 int main() {
     Image img;
     bool loaded = false;
@@ -301,6 +365,7 @@ int main() {
 
     return 0;
 }
+
 
 
 
