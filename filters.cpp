@@ -99,7 +99,7 @@ Image resizeImage(const Image &src, int new_W, int new_H) {
     return resized;
 }
 
-// Filter 4: Merge Two Images 
+// Filter 4: Merge Two Images
 void Apply_Merge(Image &img) {
     string filename2;
     cout << "Enter the filename of the second image: ";
@@ -225,12 +225,12 @@ void Apply_rotate_filter(Image &img , int angle){
                     rotated_image (y, width - 1 - x, z) = img (x, y, z);
                 }
             }
-        } 
+        }
     }
 
 
     else if (angle == 180) {
-        rotated_image = Image(width, height); 
+        rotated_image = Image(width, height);
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 for (int z = 0; z < 3; z++) {
@@ -238,7 +238,7 @@ void Apply_rotate_filter(Image &img , int angle){
                 }
             }
         }
-    } 
+    }
     else if (angle == 270) {
         rotated_image = Image(height, width);
         for (int x = 0; x < width; x++) {
@@ -248,13 +248,13 @@ void Apply_rotate_filter(Image &img , int angle){
                 }
             }
         }
-    } 
+    }
     else {
         cout << "Invalid angle, please use 90, 180, or 270." << "\n";
         return;
     }
 
-    img = rotated_image; 
+    img = rotated_image;
     cout << "[Rotate filter is applied]\n";
 }
 
@@ -265,7 +265,7 @@ int main() {
     bool modified = false;
     int choice;
 
-    //Load first image 
+    //Load first image
     while (!loaded) {
         string filename;
         cout << "Enter the image filename to start: ";
@@ -328,7 +328,10 @@ int main() {
             modified = true;
         }
         else if (choice == 7) {
-            Apply_rotate_filter(img);
+            int angle;
+            cin>>angle;
+            cout<< "Enter angle: ";
+            Apply_rotate_filter(img,angle);
             modified = true;
         }
         else if (choice == 8) {
@@ -368,6 +371,7 @@ int main() {
     }
     return 0;
 }
+
 
 
 
