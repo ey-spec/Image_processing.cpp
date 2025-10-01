@@ -1,10 +1,34 @@
+/*
+=============================================
+Project: Image processing (filters)
+
+File Explanation:
+   This C++ file implements a simple image processing program.
+   The program allows the user to:
+     - Load an image from file
+     - Apply filters (Grayscale, Black & White, Invert, Merge, Flip, Rotate)
+     - Save the processed image
+     - Display a menu to choose options until the user exits
+
+   Each filter is implemented in a separate function for clarity.
+   The main function handles user input.
+
+Team Members:
+  - Karim Ashraf (ID: 20240419) : Invert + Rotate
+  - Eyad Hatem (ID: 20240097) : Grayscale + Merge
+  - Sherif Ahmed  (ID: 20240277): Black & White + Flip
+=============================================
+*/
+
+
+
+
 #include <iostream>
 #include <string>
 #include "Image_Class.h"
 using namespace std;
-
 void Display_Menu() {
-    cout << "\n=== Image Processing Menu ===\n";
+    cout << "\n==== Image Processing Menu ====\n";
     cout << "1. Load New Image\n";
     cout << "2. Apply Grayscale Filter\n";
     cout << "3. Apply Black & White Filter\n";
@@ -16,8 +40,10 @@ void Display_Menu() {
     cout << "9. Exit\n";
     cout << "Choose option: ";
 }
-//Filter 1: Grayscale Filter
-void Apply_Grayscale(Image &img) {
+
+// filter 1
+
+void Apply_Grayscale_filter(Image &img) {
     int width = img.width;
     int height = img.height;
 
@@ -37,8 +63,10 @@ void Apply_Grayscale(Image &img) {
     }
     cout << "[Grayscale filter is applied]\n";
 }
-//Filter 2: Black and White Filter
-void Apply_black_white(Image &img) {
+
+// filter 2 
+
+void Apply_black_white_filter(Image &img) {
     unsigned int threshold = 128;
 
     for (int i = 0; i < img.width; ++i) {
@@ -63,7 +91,8 @@ void Apply_black_white(Image &img) {
     }
     cout << "[Black & White filter is applied]\n";
 }
-//Filter 3:Invert Filter
+
+// filter 3
 
 void Apply_Invert_filter(Image &img){
 
@@ -82,6 +111,7 @@ void Apply_Invert_filter(Image &img){
 }
 
 // Resize image
+
 Image resizeImage(const Image &src, int new_W, int new_H) {
     Image resized(new_W, new_H);
 
@@ -99,8 +129,8 @@ Image resizeImage(const Image &src, int new_W, int new_H) {
     return resized;
 }
 
-// Filter 4: Merge Two Images
-void Apply_Merge(Image &img) {
+// filter 4
+void Apply_Merge_filter(Image &img) {
     string filename2;
     cout << "Enter the filename of the second image: ";
     cin >> filename2;
@@ -173,8 +203,10 @@ void Apply_Merge(Image &img) {
         cerr << "Error loading second image: " << e.what() << endl;
     }
 }
-//Filter 5: Flip Image
-void Apply_Flip(Image &img) {
+
+// filter 5
+
+void Apply_Flip_filter(Image &img) {
     cout << "Choose flip type:\n";
     cout << "1 - Horizontal Flip (Left Right)\n";
     cout << "2 - Vertical Flip (Top Bottom)\n";
@@ -209,12 +241,11 @@ void Apply_Flip(Image &img) {
     img = flipped_pic;
     cout << "[Flip filter is applied]\n";
 }
-//Filter 6: Rotate Image
 
-void Apply_rotate_filter(Image &img , int angle){
+// filter 6
+void Apply_rotate_filter(Image &img, int angle){
     int width = img.width;
     int height = img.height;
-
     Image rotated_image;
 
     if (angle == 90){
@@ -265,7 +296,7 @@ int main() {
     bool modified = false;
     int choice;
 
-    //Load first image
+    // Load first image
     while (!loaded) {
         string filename;
         cout << "Enter the image filename to start: ";
@@ -308,11 +339,11 @@ int main() {
             }
         }
         else if (choice == 2) {
-            Apply_Grayscale(img);
+            Apply_Grayscale_filter(img);
             modified = true;
         }
         else if (choice == 3) {
-            Apply_black_white(img);
+            Apply_black_white_filter(img);
             modified = true;
         }
         else if (choice == 4) {
@@ -320,17 +351,17 @@ int main() {
             modified = true;
         }
         else if (choice == 5) {
-            Apply_Merge(img);
+            Apply_Merge_filter(img);
             modified = true;
         }
         else if (choice == 6) {
-            Apply_Flip(img);
+            Apply_Flip_filter(img);
             modified = true;
         }
         else if (choice == 7) {
             int angle;
+            cout<< "Enter angle from (90,180,270): " ;
             cin>>angle;
-            cout<< "Enter angle: ";
             Apply_rotate_filter(img,angle);
             modified = true;
         }
@@ -371,10 +402,3 @@ int main() {
     }
     return 0;
 }
-
-
-
-
-
-
-
