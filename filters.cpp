@@ -345,6 +345,30 @@ void Apply_Lighten_Darken_filter(Image &img) {
     else if (choice == 2)
         cout << "[Darken filter applied by " << percentage << "%]\n";
 }
+//filter 8 cropping images
+void Apply_Crop_filter(Image& img) {
+    int x, y, W, H;
+    cout << "Enter starting point (x y): ";
+    cin >> x >> y;
+    cout << "Enter width (W) and height (H) for cropping: ";
+    cin >> W >> H;
+
+    if (x < 0 || y < 0 || x + W > img.width || y + H > img.height) {
+        cout << "the Crop dimensions are out of the image's boundaries.\n";
+        return;
+    }
+    Image cropped(W, H);
+    for (int i = 0; i < W; i++) {
+        for (int j = 0; j < H; j++) {
+            for (int c = 0; c < 3; c++) {
+                unsigned char val = img.getPixel(x + i, y + j, c);
+                cropped.setPixel(i, j, c, val);
+            }
+        }
+    }
+    img = cropped;
+    cout << "[Crop filter applied successfully]\n";
+}
 
 // filter 10
 void Apply_Edge_Detection_filter(Image &img) {
@@ -564,3 +588,4 @@ int main() {
     }
     return 0;
 }
+
