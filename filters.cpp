@@ -36,8 +36,20 @@ void Display_Menu() {
     cout << "5. Merge Two Images\n";
     cout << "6. Flip Image\n";
     cout << "7. Rotate Image\n";
-    cout << "8. Save Current Image\n";
-    cout << "9. Exit\n";
+    cout << "8. Darken and Lighten Image\n";
+    cout << "9. Crop Images\n";
+    cout << "10. Adding a Frame to the Picture\n";
+    cout << "11. Detect Image Edges\n";
+    cout << "12. Resizing Images\n";
+    cout << "13. Blur Images\n";
+    cout << "14. Natural Sunlight.\n";
+    cout << "15. Oil painting\n";
+    cout << "16. Den Den Mushi\n";
+    cout << "17. Purple Image\n";
+    cout << "18. Infrared Image\n";
+    cout << "19. Image skewing\n";
+    cout << "20. Save Current Image\n";
+    cout << "21. Exit\n";
     cout << "Choose option: ";
 }
 
@@ -64,7 +76,7 @@ void Apply_Grayscale_filter(Image &img) {
     cout << "[Grayscale filter is applied]\n";
 }
 
-// filter 2 
+// filter 2
 
 void Apply_black_white_filter(Image &img) {
     unsigned int threshold = 128;
@@ -288,6 +300,140 @@ void Apply_rotate_filter(Image &img, int angle){
     img = rotated_image;
     cout << "[Rotate filter is applied]\n";
 }
+// filter 7 (custom percentage)
+void Apply_Lighten_Darken_filter(Image &img) {
+    cout << "Choose an option:\n";
+    cout << "1 - Lighten Image (make brighter)\n";
+    cout << "2 - Darken Image (make darker)\n";
+    cout << "Enter choice: ";
+    int choice;
+    cin >> choice;
+
+    double percentage;
+    cout << "Enter percentage (0 - 100): ";
+    cin >> percentage;
+
+    if (percentage < 0 || percentage > 100) {
+        cout << "Invalid percentage. Must be between 0 and 100.\n";
+        return;
+    }
+
+    double factor = percentage / 100.0;
+
+    for (int y = 0; y < img.height; y++) {
+        for (int x = 0; x < img.width; x++) {
+            for (int c = 0; c < 3; c++) {
+                unsigned char pix = img.getPixel(x, y, c);
+                int newValue;
+                if (choice == 1) { // Lighten
+                    newValue = pix + (pix * factor);
+                    if (newValue > 255) newValue = 255;
+                } else if (choice == 2) { // Darken
+                    newValue = pix - (pix * factor);
+                    if (newValue < 0) newValue = 0;
+                } else {
+                    cout << "Invalid choice. No changes made.\n";
+                    return;
+                }
+                img.setPixel(x, y, c, (unsigned char)newValue);
+            }
+        }
+    }
+
+    if (choice == 1)
+        cout << "[Lighten filter applied by " << percentage << "%]\n";
+    else if (choice == 2)
+        cout << "[Darken filter applied by " << percentage << "%]\n";
+}
+
+// filter 10
+void Apply_Edge_Detection_filter(Image &img) {
+    Image edgeImage(img.width, img.height);
+
+    int threshold = 30;
+
+    for (int y = 0; y < img.height - 1; y++) {
+        for (int x = 0; x < img.width - 1; x++) {
+
+            unsigned char r1 = img.getPixel(x, y, 0);
+            unsigned char g1 = img.getPixel(x, y, 1);
+            unsigned char b1 = img.getPixel(x, y, 2);
+            int avg1 = (r1 + g1 + b1) / 3;
+
+            unsigned char r2 = img.getPixel(x + 1, y, 0);
+            unsigned char g2 = img.getPixel(x + 1, y, 1);
+            unsigned char b2 = img.getPixel(x + 1, y, 2);
+            int avg2 = (r2 + g2 + b2) / 3;
+
+            unsigned char r3 = img.getPixel(x, y + 1, 0);
+            unsigned char g3 = img.getPixel(x, y + 1, 1);
+            unsigned char b3 = img.getPixel(x, y + 1, 2);
+            int avg3 = (r3 + g3 + b3) / 3;
+
+            int diff = abs(avg1 - avg2) + abs(avg1 - avg3);
+
+            unsigned char edgeColor = (diff > threshold) ? 255 : 0;
+
+            edgeImage.setPixel(x, y, 0, edgeColor);
+            edgeImage.setPixel(x, y, 1, edgeColor);
+            edgeImage.setPixel(x, y, 2, edgeColor);
+        }
+    }
+
+    img = edgeImage;
+    cout << "[Edge Detection filter applied successfully]\n";
+}
+// filter 13
+void Apply_Sunlight_filter(Image &img) {
+    int width = img.width;
+    int height = img.height;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            unsigned char r = img.getPixel(x, y, 0);
+            unsigned char g = img.getPixel(x, y, 1);
+            unsigned char b = img.getPixel(x, y, 2);
+
+            int newR = r + 50;
+            int newG = g + 30;
+            int newB = b;
+
+            if (newR > 255) newR = 255;
+            if (newG > 255) newG = 255;
+            if (newB > 255) newB = 255;
+
+            img.setPixel(x, y, 0, (unsigned char)newR);
+            img.setPixel(x, y, 1, (unsigned char)newG);
+            img.setPixel(x, y, 2, (unsigned char)newB);
+        }
+    }
+
+    cout << "[Sunlight filter applied]\n";
+}
+// filter 16
+void Apply_Purple_filter(Image &img) {
+
+    for (int y = 0; y < img.height; y++) {
+        for (int x = 0; x < img.width; x++) {
+            unsigned char r = img.getPixel(x, y, 0);
+            unsigned char g = img.getPixel(x, y, 1);
+            unsigned char b = img.getPixel(x, y, 2);
+            
+            int newR = r + 50;
+            int newG = g * 0.5;
+            int newB = b + 70;
+
+            if (newR > 255) newR = 255;
+            if (newB > 255) newB = 255;
+
+            img.setPixel(x, y, 0, (unsigned char)newR);
+            img.setPixel(x, y, 1, (unsigned char)newG);
+            img.setPixel(x, y, 2, (unsigned char)newB);
+        }
+    }
+
+    cout << "[Purple filter applied]\n";
+}
 
 
 int main() {
@@ -366,6 +512,22 @@ int main() {
             modified = true;
         }
         else if (choice == 8) {
+            Apply_Lighten_Darken_filter(img);
+            modified = true;
+        }
+        else if (choice == 11) {
+            Apply_Edge_Detection_filter(img);
+            modified = true;
+        }
+        else if (choice == 14) {
+            Apply_Sunlight_filter(img);
+            modified = true;
+        }
+        else if (choice == 17) {
+            Apply_Purple_filter(img);
+            modified = true;
+        }
+        else if (choice == 20) {
             string out;
             cout << "Enter filename (with extension .jpg/.png/.bmp): ";
             cin >> out;
@@ -377,7 +539,7 @@ int main() {
                 cerr << "Error: " << e.what() << endl;
             }
         }
-        else if (choice == 9) {
+        else if (choice == 21) {
             if (modified) {
                 cout << "Do you want to save before exit? (y/n): ";
                 char ans; cin >> ans;
@@ -402,4 +564,3 @@ int main() {
     }
     return 0;
 }
-
