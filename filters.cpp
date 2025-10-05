@@ -539,6 +539,10 @@ int main() {
             Apply_Lighten_Darken_filter(img);
             modified = true;
         }
+        else if (choice == 9) {
+            Apply_Crop_filter(img);
+            modified = true;
+        }
         else if (choice == 11) {
             Apply_Edge_Detection_filter(img);
             modified = true;
@@ -588,5 +592,6 @@ int main() {
     }
     return 0;
 }
+
 
 
