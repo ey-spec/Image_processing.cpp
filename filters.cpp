@@ -44,7 +44,7 @@ void Display_Menu() {
     cout << "13. Blur Images\n";
     cout << "14. Natural Sunlight.\n";
     cout << "15. Oil painting\n";
-    cout << "16. Den Den Mushi\n";
+    cout << "16. TV Filter\n";
     cout << "17. Purple Image\n";
     cout << "18. Infrared Image\n";
     cout << "19. Image skewing\n";
@@ -588,4 +588,5 @@ int main() {
     }
     return 0;
 }
+
 
