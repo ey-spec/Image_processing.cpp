@@ -407,6 +407,31 @@ void Apply_Edge_Detection_filter(Image &img) {
     img = edgeImage;
     cout << "[Edge Detection filter applied successfully]\n";
 }
+// filter 11 image resizing
+void Apply_Resize_filter(Image& img) {
+    int new_W, new_H;
+    cout << "Enter new width and height: ";
+    cin >> new_W >> new_H;
+
+    if (new_W <= 0 || new_H <= 0) {
+        cout << "Invalid dimensions.\n";
+        return;
+    }
+
+    Image resized(new_W, new_H);
+    for (int i = 0; i < new_W; i++) {
+        for (int j = 0; j < new_H; j++) {
+            int srcX = i * img.width / new_W;
+            int srcY = j * img.height / new_H;
+            for (int c = 0; c < 3; c++) {
+                unsigned char val = img.getPixel(srcX, srcY, c);
+                resized.setPixel(i, j, c, val);
+            }
+        }
+    }
+    img = resized;
+    cout << "[Resize filter applied successfully]\n";
+}
 // filter 13
 void Apply_Sunlight_filter(Image &img) {
     int width = img.width;
@@ -592,6 +617,7 @@ int main() {
     }
     return 0;
 }
+
 
 
 
