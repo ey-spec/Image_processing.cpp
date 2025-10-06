@@ -345,7 +345,7 @@ void Apply_Lighten_Darken_filter(Image &img) {
     else if (choice == 2)
         cout << "[Darken filter applied by " << percentage << "%]\n";
 }
-//filter 8 cropping images
+//filter 8 
 void Apply_Crop_filter(Image& img) {
     int x, y, W, H;
     cout << "Enter starting point (x y): ";
@@ -407,7 +407,7 @@ void Apply_Edge_Detection_filter(Image &img) {
     img = edgeImage;
     cout << "[Edge Detection filter applied successfully]\n";
 }
-// filter 11 image resizing
+// filter 11 
 void Apply_Resize_filter(Image& img) {
     int new_W, new_H;
     cout << "Enter new width and height: ";
@@ -617,6 +617,7 @@ int main() {
     }
     return 0;
 }
+
 
 
 
