@@ -678,7 +678,50 @@ void Apply_Sunlight_filter(Image &img) {
     cout << "[Sunlight filter applied]\n";
 }
 
-
+// filter 14
+void Apply_OilPainting_filter(Image &img) {
+    int levels = 20;
+    int radius = 4;
+    Image result(img.width, img.height);
+    for (int y = 0; y < img.height; y++) {
+        for (int x = 0; x < img.width; x++) {
+            int intensityCount[20] = {0};
+            int rSum[20] = {0};
+            int gSum[20] = {0};
+            int bSum[20] = {0};
+            for (int ny = -radius; ny <= radius; ny++) {
+                for (int nx = -radius; nx <= radius; nx++) {
+                    int px = x + nx;
+                    int py = y + ny;
+                    if (px >= 0 && px < img.width && py >= 0 && py < img.height) {
+                        unsigned char r = img.getPixel(px, py, 0);
+                        unsigned char g = img.getPixel(px, py, 1);
+                        unsigned char b = img.getPixel(px, py, 2);
+                        int intensity = ((r + g + b) / 3) * levels / 256;
+                        if (intensity >= levels) intensity = levels - 1;
+                        intensityCount[intensity]++;
+                        rSum[intensity] += r;
+                        gSum[intensity] += g;
+                        bSum[intensity] += b;
+                    }
+                }
+            }
+            int maxIndex = 0;
+            for (int i = 1; i < levels; i++) {
+                if (intensityCount[i] > intensityCount[maxIndex]) maxIndex = i;
+            }
+            int count = intensityCount[maxIndex];
+            unsigned char newR = (unsigned char)(rSum[maxIndex] / count);
+            unsigned char newG = (unsigned char)(gSum[maxIndex] / count);
+            unsigned char newB = (unsigned char)(bSum[maxIndex] / count);
+            result.setPixel(x, y, 0, newR);
+            result.setPixel(x, y, 1, newG);
+            result.setPixel(x, y, 2, newB);
+        }
+    }
+    img = result;
+    cout << "[Oil Painting filter applied]\n";
+}
 
 
 // Filter 15
@@ -959,6 +1002,7 @@ int main() {
     }
     return 0;
 }
+
 
 
 
