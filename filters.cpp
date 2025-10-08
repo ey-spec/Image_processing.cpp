@@ -859,14 +859,12 @@ void Apply_Skew_Filter(Image &img) {
 
     double angle = degree * M_PI / 180.0;
     double shear = tan(angle);
-
-    // حساب أقصى إزاحة
+    
     int maxShift = (int)(fabs(shear) * img.height);
     int newWidth = img.width + maxShift;
 
     Image output(newWidth, img.height);
-
-    // خلفية بيضاء
+    
     for (int y = 0; y < output.height; y++) {
         for (int x = 0; x < output.width; x++) {
             output.setPixel(x, y, 0, 255);
