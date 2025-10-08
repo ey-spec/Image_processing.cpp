@@ -50,9 +50,10 @@ void Display_Menu() {
     cout << "16. Apply TV noise Filter\n"; //
     cout << "17. Purple Image\n";
     cout << "18. Infrared Image\n";
-    cout << "19. Image skewing\n"; //
-    cout << "20. Save Current Image\n";
-    cout << "21. Exit\n";
+    cout << "19. Image skewing\n";
+    cout << "20. Undo Last Filter\n";
+    cout << "21. Save Current Image\n";
+    cout << "22. Exit\n";
     cout << "Choose option: "<<"\n";
 }
 
@@ -260,8 +261,7 @@ void Apply_Flip_filter(Image &img) {
 
 // filter 6
 
-void Apply_rotate_filter(Image &img, int angle){
-
+void Apply_rotate_filter(Image &img, int angle) {
     int width = img.width;
     int height = img.height;
     Image rotated_image;
@@ -304,7 +304,7 @@ void Apply_rotate_filter(Image &img, int angle){
     }
 
     img = rotated_image;
-    cout << "[Rotate filter is applied]\n";
+    cout << "[Rotate filter is applied by angle: "<< angle <<"]\n";
 }
 
 // filter 7 (custom percentage)
@@ -354,7 +354,7 @@ void Apply_Lighten_Darken_filter(Image &img) {
         cout << "[Darken filter applied by " << percentage << "%]\n";
 }
 
-//filter 8 
+//filter 8
 
 void Apply_Crop_filter(Image& img) {
     int x, y, W, H;
@@ -380,7 +380,7 @@ void Apply_Crop_filter(Image& img) {
     cout << "[Crop filter applied successfully]\n";
 }
 
-// a function that take colors from user and apply it 
+// a function that take colors from user and apply it
 
 void get_colors_from_user(int choice, unsigned char &r, unsigned char &g, unsigned char &b) {
     if (choice == 1) { r=0; g=0; b=0; }             // Black
@@ -571,7 +571,7 @@ void Apply_Edge_Detection_filter(Image &img) {
     cout << "[Edge Detection filter applied successfully]\n";
 }
 
-// filter 11 
+// filter 11
 
 void Apply_Resize_filter(Image& img) {
     int new_W, new_H;
@@ -644,6 +644,8 @@ void Apply_Blur_Filter(Image &img) {
             img.setPixel(x, y, 2, b);
         }
     }
+    cout << "[Blur filter applied]\n";
+
 }
 
 
@@ -726,7 +728,7 @@ void Apply_OilPainting_filter(Image &img) {
 
 // Filter 15
 void Apply_TV_Noise_Filter(Image &img) {
-    srand(time(0)); 
+    srand(time(0));
 
     for (int y = 0; y < img.height; y++) {
         for (int x = 0; x < img.width; x++) {
@@ -735,14 +737,14 @@ void Apply_TV_Noise_Filter(Image &img) {
             unsigned char g = img.getPixel(x, y, 1);
             unsigned char b = img.getPixel(x, y, 2);
 
-      
+
             unsigned char gray = (r + g + b) / 3;
             r = (r + gray) / 2;
             g = (g + gray) / 2;
             b = (b + gray) / 2;
 
-        
-            int noise = (rand() % 100) - 50; 
+
+            int noise = (rand() % 100) - 50;
             int nr = max(0, min(255, r + noise));
             int ng = max(0, min(255, g + noise));
             int nb = max(0, min(255, b + noise));
@@ -758,6 +760,7 @@ void Apply_TV_Noise_Filter(Image &img) {
             img.setPixel(x, y, 2, nb);
         }
     }
+    cout << "[TV Noise Painting filter applied]\n";
 }
 
 
@@ -771,7 +774,7 @@ void Apply_Purple_filter(Image &img) {
             unsigned char r = img.getPixel(x, y, 0);
             unsigned char g = img.getPixel(x, y, 1);
             unsigned char b = img.getPixel(x, y, 2);
-            
+
             int newR = r + 50;
             int newG = g * 0.5;
             int newB = b + 70;
@@ -786,6 +789,26 @@ void Apply_Purple_filter(Image &img) {
     }
 
     cout << "[Purple filter applied]\n";
+}
+// filter 17
+void Apply_Infrared_filter(Image &img) {
+    for (int y = 0; y < img.height; y++) {
+        for (int x = 0; x < img.width; x++) {
+            unsigned char r = img(x, y, 0);
+            unsigned char g = img(x, y, 1);
+            unsigned char b = img(x, y, 2);
+
+            int newR = min(255, (int)(r * 1.5 + g * 0.3));
+            int newG = min(255, (int)(g * 0.2 + b * 0.1));
+            int newB = min(255, 255);
+
+
+            img(x, y, 0) = (unsigned char)newR;
+            img(x, y, 1) = (unsigned char)newG;
+            img(x, y, 2) = (unsigned char)newB;
+        }
+    }
+    cout << "[Infrared filter applied]\n";
 }
 
 
@@ -854,6 +877,7 @@ void Apply_Skew_Filter(Image &img) {
 
 int main() {
     Image img;
+    Image prev_img;
     bool loaded = false;
     bool modified = false;
     int choice;
@@ -901,22 +925,27 @@ int main() {
             }
         }
         else if (choice == 2) {
+            prev_img = img;
             Apply_Grayscale_filter(img);
             modified = true;
         }
         else if (choice == 3) {
+            prev_img = img;
             Apply_black_white_filter(img);
             modified = true;
         }
         else if (choice == 4) {
+            prev_img = img;
             Apply_Invert_filter(img);
             modified = true;
         }
         else if (choice == 5) {
+            prev_img = img;
             Apply_Merge_filter(img);
             modified = true;
         }
         else if (choice == 6) {
+            prev_img = img;
             Apply_Flip_filter(img);
             modified = true;
         }
@@ -924,48 +953,77 @@ int main() {
             int angle;
             cout<< "Enter angle from (90, 180, 270): " ;
             cin>>angle;
+            prev_img = img;
             Apply_rotate_filter(img,angle);
             modified = true;
         }
         else if (choice == 8) {
+            prev_img = img;
             Apply_Lighten_Darken_filter(img);
             modified = true;
         }
         else if (choice == 9) {
+            prev_img = img;
             Apply_Crop_filter(img);
             modified = true;
         }
         else if (choice == 10) {
+            prev_img = img;
             Apply_frame_filter(img);
             modified = true;
         }
         else if (choice == 11) {
+            prev_img = img;
             Apply_Edge_Detection_filter(img);
             modified = true;
         }
+        else if (choice == 12) {
+            prev_img = img;
+            Apply_Resize_filter(img);
+            modified = true;
+        }
         else if (choice == 13) {
+            prev_img = img;
             Apply_Blur_Filter(img);
             modified = true;
         }
         else if (choice == 14) {
+            prev_img = img;
             Apply_Sunlight_filter(img);
             modified = true;
         }
-        
+        else if (choice == 15) {
+            prev_img = img;
+            Apply_OilPainting_filter(img);
+            modified = true;
+        }
+
         else if (choice == 16) {
+            prev_img = img;
             Apply_TV_Noise_Filter(img);
             modified = true;
         }
         else if (choice == 17) {
+            prev_img = img;
             Apply_Purple_filter(img);
             modified = true;
         }
-        
+        else if (choice == 18) {
+            prev_img = img;
+            Apply_Infrared_filter(img);
+            modified = true;
+        }
+
         else if (choice == 19) {
+            prev_img = img;
             Apply_Skew_Filter(img);
             modified = true;
         }
         else if (choice == 20) {
+            img = prev_img;
+            cout << "[Undo successful — last filter removed]\n";
+        }
+        else if (choice == 21) {
             string out;
             cout << "Enter filename (with extension .jpg/.png/.bmp): ";
             cin >> out;
@@ -977,7 +1035,7 @@ int main() {
                 cerr << "Error: " << e.what() << endl;
             }
         }
-        else if (choice == 21) {
+        else if (choice == 22) {
             if (modified) {
                 cout << "Do you want to save before exit? (y/n): ";
                 char ans; cin >> ans;
@@ -1002,8 +1060,3 @@ int main() {
     }
     return 0;
 }
-
-
-
-
-
