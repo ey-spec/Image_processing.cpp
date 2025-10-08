@@ -331,7 +331,7 @@ void Apply_rotate_filter(Image &img, int angle) {
     }
 
     img = rotated_image;
-    cout << "[Rotate filter is applied by angle"<< angle <<"]\n";
+    cout << "[Rotate filter is applied by angle "<< angle <<"]\n";
 }
 
 // filter 7 (custom percentage)
@@ -555,6 +555,7 @@ void Apply_frame_filter(Image &img) {
     if (style == 5) {
         draw_Corner_Decorations(img, thickness, 255, 255, 255);
     }
+    cout << "[Frame is added successfully]\n";
 }
 
 
@@ -564,7 +565,7 @@ void Apply_frame_filter(Image &img) {
 void Apply_Edge_Detection_filter(Image &img) {
     Image edgeImage(img.width, img.height);
 
-    int threshold = 30;
+    int threshold = 45;
 
     for (int y = 0; y < img.height - 1; y++) {
         for (int x = 0; x < img.width - 1; x++) {
@@ -586,7 +587,7 @@ void Apply_Edge_Detection_filter(Image &img) {
 
             int diff = abs(avg1 - avg2) + abs(avg1 - avg3);
 
-            unsigned char edgeColor = (diff > threshold) ? 255 : 0;
+            unsigned char edgeColor = (diff > threshold) ? 0 : 255;
 
             edgeImage.setPixel(x, y, 0, edgeColor);
             edgeImage.setPixel(x, y, 1, edgeColor);
@@ -898,6 +899,7 @@ void Apply_Skew_Filter(Image &img) {
     }
 
     img = output;
+    cout << "[Image skewed successfully by "<< degree << " degrees" << " to the " << direction << "]\n";
 }
 
 
