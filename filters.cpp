@@ -33,9 +33,9 @@ using namespace std;
 void Display_Menu() {
     cout << "\n==== Image Processing Menu ====\n";
     cout << "1. Load New Image\n";
-    cout << "2. Apply Grayscale Filter\n";
-    cout << "3. Apply Black & White Filter\n";
-    cout << "4. Apply Invert Filter\n";
+    cout << "2. Grayscale Filter\n";
+    cout << "3. Black & White Filter\n";
+    cout << "4. Invert Filter\n";
     cout << "5. Merge Two Images\n";
     cout << "6. Flip Image\n";
     cout << "7. Rotate Image\n";
@@ -45,9 +45,9 @@ void Display_Menu() {
     cout << "11. Detect Image Edges\n";
     cout << "12. Resizing Images\n";
     cout << "13. Blur Images\n"; //
-    cout << "14. Apply Natural Sunlight filter\n";
-    cout << "15. Apply Oil painting filter\n";
-    cout << "16. Apply TV noise Filter\n"; //
+    cout << "14. Natural Sunlight filter\n";
+    cout << "15. Oil painting filter\n";
+    cout << "16. TV noise Filter\n"; //
     cout << "17. Purple Image\n";
     cout << "18. Infrared Image\n";
     cout << "19. Image skewing\n";
@@ -304,7 +304,7 @@ void Apply_rotate_filter(Image &img, int angle) {
     }
 
     img = rotated_image;
-    cout << "[Rotate filter is applied by angle: "<< angle <<"]\n";
+    cout << "[Rotate filter is applied by angle"<< angle <<"]\n";
 }
 
 // filter 7 (custom percentage)
@@ -526,7 +526,7 @@ void Apply_frame_filter(Image &img) {
     }
 
     if (style == 5) {
-        draw_Corner_Decorations(img, thickness, 255, 255, 255); // زخرفة بالأبيض
+        draw_Corner_Decorations(img, thickness, 255, 255, 255);
     }
 }
 
@@ -566,7 +566,6 @@ void Apply_Edge_Detection_filter(Image &img) {
             edgeImage.setPixel(x, y, 2, edgeColor);
         }
     }
-
     img = edgeImage;
     cout << "[Edge Detection filter applied successfully]\n";
 }
@@ -1060,3 +1059,9 @@ int main() {
     }
     return 0;
 }
+
+
+
+
+
+
