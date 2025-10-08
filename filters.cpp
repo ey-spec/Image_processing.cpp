@@ -1,25 +1,49 @@
 /*
-=============================================
-Project: Image processing (filters)
+=========================================================
+               Image Processing Project
+=========================================================
 
-File Explanation:
-   This C++ file implements a simple image processing program.
-   The program allows the user to:
-     - Load an image from file
-     - Apply filters (Grayscale, Black & White, Invert, Merge, Flip, Rotate)
-     - Save the processed image
-     - Display a menu to choose options until the user exits
+Program Overview:
+This C++ program implements a basic image processing system
+that allows the user to:
+  - Load an image from file
+  - Apply a variety of filters:
+      • Grayscale
+      • Black & White
+      • Invert
+      • Merge
+      • Flip
+      • Rotate
+      • Darken & Lighten
+      • Crop Images
+      • Add a Frame
+      • Detect Image Edges
+      • Resize Images
+      • Blur Images
+      • Add Natural Sunlight
+      • Oil Painting Effect
+      • TV Noise
+      • Purple Effect
+      • Infrared
+      • Image Skewing
+  - Save the processed image
+  - Navigate easily using a menu system
 
-   Each filter is implemented in a separate function for clarity.
-   The main function handles user input.
+Program Structure:
+Each filter is implemented in its own function for clarity.
+The main function handles user input and overall control flow.
 
 Team Members:
-  - Karim Ashraf (ID: 20240419) : Invert + Rotate
-  - Eyad Hatem (ID: 20240097) : Grayscale + Merge
-  - Sherif Ahmed  (ID: 20240277): Black & White + Flip
-=============================================
-*/
+  - Karim Ashraf (ID: 20240419) / All-B
+      ==> Invert, Rotate, Add Frame, Blur, TV Noise, Skewing
+  - Eyad Hatem (ID: 20240097) / All-B
+      ==> Grayscale, Merge, Darken & Lighten, Edge Detection,
+        Sunlight, Purple Effect, Menu System
+  - Sherif Ahmed (ID: 20240277) / All-B
+      ==> Black & White, Flip, Crop, Resize, Oil Painting, Infrared
 
+=========================================================
+*/
 
 
 
@@ -1059,6 +1083,7 @@ int main() {
     }
     return 0;
 }
+
 
 
 
