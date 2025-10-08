@@ -26,6 +26,7 @@ that allows the user to:
       • Purple Effect
       • Infrared
       • Image Skewing
+  - Undo last filter    
   - Save the processed image
   - Navigate easily using a menu system
 
@@ -38,7 +39,7 @@ Team Members:
       ==> Invert, Rotate, Add Frame, Blur, TV Noise, Skewing
   - Eyad Hatem (ID: 20240097) / All-B
       ==> Grayscale, Merge, Darken & Lighten, Edge Detection,
-        Sunlight, Purple Effect, Menu System
+        Sunlight, Purple Effect, Undo Last Filter, Menu System,
   - Sherif Ahmed (ID: 20240277) / All-B
       ==> Black & White, Flip, Crop, Resize, Oil Painting, Infrared
 
@@ -1085,3 +1086,4 @@ int main() {
     }
     return 0;
 }
+
