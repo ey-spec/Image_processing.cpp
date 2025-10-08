@@ -595,7 +595,7 @@ void Apply_Edge_Detection_filter(Image &img) {
         }
     }
     img = edgeImage;
-    cout << "[Edge Detection filter applied successfully]\n";
+    cout << "[Edge Detection filter is applied]\n";
 }
 
 // filter 11
@@ -622,7 +622,7 @@ void Apply_Resize_filter(Image& img) {
         }
     }
     img = resized;
-    cout << "[Resize filter applied successfully]\n";
+    cout << "[Resize filter is applied]\n";
 }
 
 
@@ -671,7 +671,7 @@ void Apply_Blur_Filter(Image &img) {
             img.setPixel(x, y, 2, b);
         }
     }
-    cout << "[Blur filter applied]\n";
+    cout << "[Blur filter is applied]\n";
 
 }
 
@@ -704,7 +704,7 @@ void Apply_Sunlight_filter(Image &img) {
         }
     }
 
-    cout << "[Sunlight filter applied]\n";
+    cout << "[Sunlight filter is applied]\n";
 }
 
 // filter 14
@@ -749,7 +749,7 @@ void Apply_OilPainting_filter(Image &img) {
         }
     }
     img = result;
-    cout << "[Oil Painting filter applied]\n";
+    cout << "[Oil Painting filter is applied]\n";
 }
 
 
@@ -787,7 +787,7 @@ void Apply_TV_Noise_Filter(Image &img) {
             img.setPixel(x, y, 2, nb);
         }
     }
-    cout << "[TV Noise Painting filter applied]\n";
+    cout << "[TV Noise Painting filter is applied]\n";
 }
 
 
@@ -815,7 +815,7 @@ void Apply_Purple_filter(Image &img) {
         }
     }
 
-    cout << "[Purple filter applied]\n";
+    cout << "[Purple filter is applied]\n";
 }
 // filter 17
 void Apply_Infrared_filter(Image &img) {
@@ -835,19 +835,19 @@ void Apply_Infrared_filter(Image &img) {
             img(x, y, 2) = (unsigned char)newB;
         }
     }
-    cout << "[Infrared filter applied]\n";
+    cout << "[Infrared filter is applied]\n";
 }
 
 
 // Filter 18
 void Apply_Skew_Filter(Image &img) {
     int degree;
-    char direction;
+    string direction;
 
     cout << "Enter skew degree: ";
     cin >> degree;
 
-    cout << "Choose direction (R = right, L = left): ";
+    cout << "Choose direction (right,left): ";
     cin >> direction;
 
     if (degree == 0) {
@@ -875,18 +875,15 @@ void Apply_Skew_Filter(Image &img) {
         }
     }
 
-    // skew يمين أو شمال
     for (int y = 0; y < img.height; y++) {
         int shift = (int)(shear * y);
 
         for (int x = 0; x < img.width; x++) {
             int newX;
 
-            if (direction == 'R' || direction == 'r') {
-                // skew يمين
+            if (direction == "right" || direction == "Right") {
                 newX = x + shift;
             } else {
-                // skew شمال
                 newX = x - shift + maxShift;
             }
 
