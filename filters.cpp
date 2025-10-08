@@ -476,7 +476,7 @@ void draw_Corner_Decorations(Image &img, int thickness, unsigned char r, unsigne
 }
 
 
-// Filter 9
+// filter 9
 void Apply_frame_filter(Image &img) {
     int thickness, colorChoice, style;
     unsigned char r1,g1,b1,r2,g2,b2;
@@ -753,7 +753,7 @@ void Apply_OilPainting_filter(Image &img) {
 }
 
 
-// Filter 15
+// filter 15
 void Apply_TV_Noise_Filter(Image &img) {
     srand(time(0));
 
@@ -839,7 +839,7 @@ void Apply_Infrared_filter(Image &img) {
 }
 
 
-// Filter 18
+// filter 18
 void Apply_Skew_Filter(Image &img) {
     int degree;
     string direction;
@@ -859,12 +859,12 @@ void Apply_Skew_Filter(Image &img) {
 
     double angle = degree * M_PI / 180.0;
     double shear = tan(angle);
-    
+
     int maxShift = (int)(fabs(shear) * img.height);
     int newWidth = img.width + maxShift;
 
     Image output(newWidth, img.height);
-    
+
     for (int y = 0; y < output.height; y++) {
         for (int x = 0; x < output.width; x++) {
             output.setPixel(x, y, 0, 255);
