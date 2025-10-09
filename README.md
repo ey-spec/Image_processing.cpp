@@ -35,25 +35,45 @@ Save the edited image.
 Exit the program safely.
 
 Implemented Filters
+
 No.	Filter Name	Description
+
 1	Grayscale	Convert the image into shades of gray.
+
 2	Black & White	Convert the image to pure black and white.
+
 3	Invert	Invert all image colors (255 - RGB).
+
 4	Merge	Combine two different images into one.
+
 5	Flip	Flip the image horizontally or vertically.
+
 6	Rotate	Rotate the image by 90°, 180°, or 270°.
+
 7	Darken & Lighten	Adjust the brightness of the image.
+
 8	Crop	Select and cut a specific part of the image.
+
 9	Add Frame	Add a colored or decorated frame.
+
 10	Edge Detection	Highlight the edges in the image.
+
 11	Resize	Change image width and height.
+
 12	Blur	Soften the image for a smoother look.
+
 13	Natural Sunlight	Add warm sunlight color tones.
+
 14	Oil Painting	Create an artistic oil painting effect.
+
 15	TV Noise	Add random noise similar to old TV static.
+
 16	Purple Effect	Apply a purple hue to the image.
+
 17	Infrared	Simulate infrared photography with red tones.
+
 18	Image Skewing	Skew the image left or right by a chosen degree.
+
 —	Undo	Restore the previous image before the last change.
 How to Use
 
