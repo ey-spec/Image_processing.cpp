@@ -821,22 +821,22 @@ void Apply_Purple_filter(Image &img) {
 void Apply_Infrared_filter(Image &img) {
     for (int y = 0; y < img.height; y++) {
         for (int x = 0; x < img.width; x++) {
-            unsigned char r = img(x, y, 0);
-            unsigned char g = img(x, y, 1);
-            unsigned char b = img(x, y, 2);
+            unsigned char R = img(x, y, 0);
+            unsigned char G = img(x, y, 1);
+            unsigned char B = img(x, y, 2);
 
-            int newR = min(255, (int)(r * 1.5 + g * 0.3));
-            int newG = min(255, (int)(g * 0.2 + b * 0.1));
-            int newB = min(255, 255);
+            int newR = min(255, (int)(1.4 * R + 0.6 * G));
+            int newG = min(255, (int)(0.5 * R + 0.3 * G));
+            int newB = min(255, (int)(0.2 * R + 0.2 * G + 0.2 * B));
 
-
-            img(x, y, 0) = (unsigned char)newR;
-            img(x, y, 1) = (unsigned char)newG;
-            img(x, y, 2) = (unsigned char)newB;
+            img(x, y, 0) = newR;
+            img(x, y, 1) = newG;
+            img(x, y, 2) = newB;
         }
     }
-    cout << "[Infrared filter is applied]\n";
+    cout << "[Infrared filter applied successfully]\n";
 }
+
 
 
 // filter 18
