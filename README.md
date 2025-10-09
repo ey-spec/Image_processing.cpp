@@ -1,5 +1,7 @@
 Image Processing Filters
+
 Course: CS213 – Object Oriented Programming
+
 Instructor: Dr. Mohamed El Ramly
 
 Section: All-B
