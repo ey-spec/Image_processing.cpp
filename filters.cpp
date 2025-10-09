@@ -42,15 +42,9 @@ Team Members:
         Sunlight, Purple Effect, Undo last filter,  Menu System
   - Sherif Ahmed (ID: 20240277) / All-B
       ==> Black & White, Flip, Crop, Resize, Oil Painting, Infrared
- Repo link:
-  - https://github.com/ey-spec/Image_processing.cpp   
-  Drive link:
-  - https://drive.google.com/drive/u/0/folders/154tqApaFqlO04AZ_x_uyCD3uAybApf3T
 
 =========================================================
 */
-
-
 
 
 
@@ -67,21 +61,21 @@ void Display_Menu() {
     cout << "2. Grayscale Filter\n";
     cout << "3. Black & White Filter\n";
     cout << "4. Invert Filter\n";
-    cout << "5. Merge Two Images\n";
-    cout << "6. Flip Image\n";
-    cout << "7. Rotate Image\n";
+    cout << "5. Merge Two Images\n"; //
+    cout << "6. Flip Image\n"; //
+    cout << "7. Rotate Image\n"; //
     cout << "8. Darken and Lighten Image\n";
-    cout << "9. Crop Images\n";
+    cout << "9. Crop Images\n"; //
     cout << "10. Adding a Frame to the Picture\n"; //
-    cout << "11. Detect Image Edges\n";
+    cout << "11. Detect Image Edges\n"; //
     cout << "12. Resizing Images\n";
-    cout << "13. Blur Images\n"; //
+    cout << "13. Blur Images\n"; 
     cout << "14. Natural Sunlight filter\n";
     cout << "15. Oil painting filter\n";
     cout << "16. TV noise Filter\n"; //
     cout << "17. Purple Image\n";
     cout << "18. Infrared Image\n";
-    cout << "19. Image skewing\n";
+    cout << "19. Image skewing\n"; //
     cout << "20. Undo Last Filter\n";
     cout << "21. Save Current Image\n";
     cout << "22. Exit\n";
@@ -507,11 +501,19 @@ void Apply_frame_filter(Image &img) {
         get_colors_from_user(colorChoice, r1, g1, b1);
     }
     else if (style == 2) { // Gradient
-        cout << "Choose first color:\n";
+        cout << "Choose first color:\n"
+             << "1. Black   2. White   3. Green\n"
+             << "4. Blue    5. Purple  6. Orange\n"
+             << "7. Yellow  8. Red     9. Pink\n"
+             << "10. Brown  11. Gray   12. Gold\n";
         cin >> colorChoice;
         get_colors_from_user(colorChoice, r1, g1, b1);
 
-        cout << "Choose second color:\n";
+        cout << "Choose second color:\n"
+             << "1. Black   2. White   3. Green\n"
+             << "4. Blue    5. Purple  6. Orange\n"
+             << "7. Yellow  8. Red     9. Pink\n"
+             << "10. Brown  11. Gray   12. Gold\n";
         cin >> colorChoice;
         get_colors_from_user(colorChoice, r2, g2, b2);
     }
@@ -1087,5 +1089,3 @@ int main() {
     }
     return 0;
 }
-
-
