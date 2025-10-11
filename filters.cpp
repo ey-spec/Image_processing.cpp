@@ -65,24 +65,28 @@ void Display_Menu() {
     cout << "2. Grayscale Filter\n";
     cout << "3. Black & White Filter\n";
     cout << "4. Invert Filter\n";
-    cout << "5. Merge Two Images\n"; //
-    cout << "6. Flip Image\n"; //
-    cout << "7. Rotate Image\n"; //
+    cout << "5. Merge Two Images\n";
+    cout << "6. Flip Image\n";
+    cout << "7. Rotate Image\n";
     cout << "8. Darken and Lighten Image\n";
-    cout << "9. Crop Images\n"; //
-    cout << "10. Adding a Frame to the Picture\n"; //
-    cout << "11. Detect Image Edges\n"; //
+    cout << "9. Crop Images\n";
+    cout << "10. Adding a Frame to the Picture\n";
+    cout << "11. Detect Image Edges\n";
     cout << "12. Resizing Images\n";
     cout << "13. Blur Images\n";
     cout << "14. Natural Sunlight filter\n";
     cout << "15. Oil painting filter\n";
-    cout << "16. TV noise Filter\n"; //
+    cout << "16. TV noise Filter\n";
     cout << "17. Purple Image\n";
     cout << "18. Infrared Image\n";
-    cout << "19. Image skewing\n"; //
-    cout << "20. Undo Last Filter\n";
-    cout << "21. Save Current Image\n";
-    cout << "22. Exit\n";
+    cout << "19. Image skewing\n";
+    cout << "20. Film Filter\n";
+    cout << "21. Motion Blur Filter\n";
+    cout << "22. Sepia Filter\n";
+    cout << "23. Pencil Sketch Filter\n";
+    cout << "24. Undo Last Filter\n";
+    cout << "25. Save Current Image\n";
+    cout << "26. Exit\n";
     cout << "Choose option: "<<"\n";
 }
 
@@ -906,6 +910,228 @@ void Apply_Skew_Filter(Image &img) {
     img = output;
     cout << "[Image skewed successfully by "<< degree << " degrees" << " to the " << direction << "]\n";
 }
+// filter 19
+void Apply_film_filter(Image &img) {
+    int width = img.width;
+    int height = img.height;
+
+    cout << "Enter film effect strength (1 = light, 2 = medium, 3 = strong): ";
+    int level;
+    cin >> level;
+
+    float contrastFactor, tintR, tintG, tintB, vignetteStrength;
+
+    if (level == 1) {
+        contrastFactor = 1.1f;
+        tintR = 1.05f; tintG = 1.0f; tintB = 0.95f;
+        vignetteStrength = 0.3f;
+    } else if (level == 2) {
+        contrastFactor = 1.2f;
+        tintR = 1.1f; tintG = 0.95f; tintB = 0.9f;
+        vignetteStrength = 0.5f;
+    } else {
+        contrastFactor = 1.3f;
+        tintR = 1.15f; tintG = 0.9f; tintB = 0.85f;
+        vignetteStrength = 0.7f;
+    }
+
+    float cx = width / 2.0f;
+    float cy = height / 2.0f;
+    float maxDist = sqrt(cx * cx + cy * cy);
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            unsigned char r = img.getPixel(x, y, 0);
+            unsigned char g = img.getPixel(x, y, 1);
+            unsigned char b = img.getPixel(x, y, 2);
+
+            float newR = ((r / 255.0f - 0.5f) * contrastFactor + 0.5f) * 255.0f;
+            float newG = ((g / 255.0f - 0.5f) * contrastFactor + 0.5f) * 255.0f;
+            float newB = ((b / 255.0f - 0.5f) * contrastFactor + 0.5f) * 255.0f;
+
+            newR *= tintR;
+            newG *= tintG;
+            newB *= tintB;
+
+            float dx = x - cx;
+            float dy = y - cy;
+            float dist = sqrt(dx * dx + dy * dy);
+            float vignette = 1.0f - vignetteStrength * (dist / maxDist);
+            vignette = max(0.0f, min(1.0f, vignette));
+
+            newR *= vignette;
+            newG *= vignette;
+            newB *= vignette;
+
+            newR = min(255.0f, max(0.0f, newR));
+            newG = min(255.0f, max(0.0f, newG));
+            newB = min(255.0f, max(0.0f, newB));
+
+            img.setPixel(x, y, 0, (unsigned char)newR);
+            img.setPixel(x, y, 1, (unsigned char)newG);
+            img.setPixel(x, y, 2, (unsigned char)newB);
+        }
+    }
+
+    cout << "[Film filter applied successfully — cinematic look achieved]\n";
+}
+
+// filter 20
+
+
+void Apply_Motion_Blur_Filter(Image &img) {
+    int width = img.width;
+    int height = img.height;
+
+    Image blurred(width, height);
+
+    int blurStrength;
+    double angle;
+
+    cout << "Enter blur strength (1-50): ";
+    cin >> blurStrength;
+    cout << "Enter blur angle in degrees (0 = horizontal, 90 = vertical, 45 = diagonal): ";
+    cin >> angle;
+
+    if (blurStrength < 1) blurStrength = 1;
+    if (blurStrength > 50) blurStrength = 50;
+
+    double rad = angle * M_PI / 180.0;
+    double dx = cos(rad);
+    double dy = sin(rad);
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            double sumR = 0, sumG = 0, sumB = 0;
+            int count = 0;
+
+            for (int k = 0; k < blurStrength; k++) {
+                int nx = x + k * dx;
+                int ny = y + k * dy;
+
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    sumR += img.getPixel(nx, ny, 0);
+                    sumG += img.getPixel(nx, ny, 1);
+                    sumB += img.getPixel(nx, ny, 2);
+                    count++;
+                }
+            }
+
+            if (count > 0) {
+                unsigned char avgR = sumR / count;
+                unsigned char avgG = sumG / count;
+                unsigned char avgB = sumB / count;
+
+                blurred.setPixel(x, y, 0, avgR);
+                blurred.setPixel(x, y, 1, avgG);
+                blurred.setPixel(x, y, 2, avgB);
+            }
+        }
+    }
+
+    img = blurred;
+    cout << "[Motion Blur filter is applied with strength " << blurStrength
+         << " and angle " << angle << " degrees]\n";
+}
+
+
+// filter 21
+void Apply_Sepia_Filter(Image &img) {
+    int width = img.width;
+    int height = img.height;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+
+            unsigned char r = img.getPixel(x, y, 0);
+            unsigned char g = img.getPixel(x, y, 1);
+            unsigned char b = img.getPixel(x, y, 2);
+
+            int newR = (int)(0.393 * r + 0.769 * g + 0.189 * b);
+            int newG = (int)(0.349 * r + 0.686 * g + 0.168 * b);
+            int newB = (int)(0.272 * r + 0.534 * g + 0.131 * b);
+
+            if (newR > 255) newR = 255;
+            if (newG > 255) newG = 255;
+            if (newB > 255) newB = 255;
+
+            img.setPixel(x, y, 0, (unsigned char)newR);
+            img.setPixel(x, y, 1, (unsigned char)newG);
+            img.setPixel(x, y, 2, (unsigned char)newB);
+        }
+    }
+
+    cout << "[Sepia filter is applied]\n";
+}
+
+// filter 22
+void Apply_Pencil_Sketch_Filter(Image &img) {
+    int width = img.width;
+    int height = img.height;
+
+    Image gray(width, height);
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            unsigned char r = img.getPixel(x, y, 0);
+            unsigned char g = img.getPixel(x, y, 1);
+            unsigned char b = img.getPixel(x, y, 2);
+            unsigned char grayVal = (r + g + b) / 3;
+            gray.setPixel(x, y, 0, grayVal);
+            gray.setPixel(x, y, 1, grayVal);
+            gray.setPixel(x, y, 2, grayVal);
+        }
+    }
+
+    Image inverted(width, height);
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            unsigned char g = gray.getPixel(x, y, 0);
+            unsigned char inv = 255 - g;
+            inverted.setPixel(x, y, 0, inv);
+            inverted.setPixel(x, y, 1, inv);
+            inverted.setPixel(x, y, 2, inv);
+        }
+    }
+
+    Image blurred(width, height);
+    int blurSize = 3;
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            int sum = 0;
+            int count = 0;
+            for (int dy = -blurSize; dy <= blurSize; dy++) {
+                for (int dx = -blurSize; dx <= blurSize; dx++) {
+                    int nx = x + dx;
+                    int ny = y + dy;
+                    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                        sum += inverted.getPixel(nx, ny, 0);
+                        count++;
+                    }
+                }
+            }
+            unsigned char blurredVal = sum / count;
+            blurred.setPixel(x, y, 0, blurredVal);
+            blurred.setPixel(x, y, 1, blurredVal);
+            blurred.setPixel(x, y, 2, blurredVal);
+        }
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            unsigned char g = gray.getPixel(x, y, 0);
+            unsigned char bVal = blurred.getPixel(x, y, 0);
+            int result = g * 255 / (255 - bVal + 1);
+            if (result > 255) result = 255;
+            img.setPixel(x, y, 0, result);
+            img.setPixel(x, y, 1, result);
+            img.setPixel(x, y, 2, result);
+        }
+    }
+
+    cout << "[Pencil Sketch filter is applied]\n";
+}
+
+
 
 
 int main() {
@@ -1053,10 +1279,30 @@ int main() {
             modified = true;
         }
         else if (choice == 20) {
+            prev_img = img;
+            Apply_film_filter(img);
+            modified = true;
+        }
+        else if (choice == 21) {
+            prev_img = img;
+            Apply_Motion_Blur_Filter(img);
+            modified = true;
+        }
+        else if (choice == 22) {
+            prev_img = img;
+            Apply_Sepia_Filter(img);
+            modified = true;
+        }
+        else if (choice == 23) {
+            prev_img = img;
+            Apply_Pencil_Sketch_Filter(img);
+            modified = true;
+        }
+        else if (choice == 24) {
             img = prev_img;
             cout << "[Undo Last filter successfully]\n";
         }
-        else if (choice == 21) {
+        else if (choice == 25) {
             string out;
             cout << "Enter filename (with extension .jpg/.png/.bmp): ";
             cin >> out;
@@ -1068,7 +1314,7 @@ int main() {
                 cerr << "Error: " << e.what() << endl;
             }
         }
-        else if (choice == 22) {
+        else if (choice == 26) {
             if (modified) {
                 cout << "Do you want to save before exit? (y/n): ";
                 char ans; cin >> ans;
@@ -1093,5 +1339,4 @@ int main() {
     }
     return 0;
 }
-
 
