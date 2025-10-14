@@ -26,6 +26,11 @@ that allows the user to:
       • Purple Effect
       • Infrared
       • Image Skewing
+      • Film
+      • Motion Blur
+      • Sepia
+      • Pencil Sketching
+
   - Undo last filter
   - Save the processed image
   - Navigate easily using a menu system
@@ -36,10 +41,12 @@ The main function handles user input and overall control flow.
 
 Team Members:
   - Karim Ashraf (ID: 20240419) / All-B
-      ==> Invert, Rotate, Add Frame, Blur, TV Noise, Skewing
+      ==> Invert, Rotate, Add Frame, Blur, TV Noise, Skewing ,
+          GUI
   - Eyad Hatem (ID: 20240097) / All-B
       ==> Grayscale, Merge, Darken & Lighten, Edge Detection,
-        Sunlight, Purple Effect, Undo last filter,  Menu System
+          Sunlight, Purple Effect , Film , Motion Blur , Sepia ,
+          Pencil Sketching , Undo last filter,  Menu System
   - Sherif Ahmed (ID: 20240277) / All-B
       ==> Black & White, Flip, Crop, Resize, Oil Painting, Infrared
 Repo link:
@@ -1339,4 +1346,8 @@ int main() {
     }
     return 0;
 }
+
+
+
+
 
