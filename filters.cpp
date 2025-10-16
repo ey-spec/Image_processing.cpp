@@ -40,10 +40,10 @@ Each filter is implemented in its own function for clarity.
 The main function handles user input and overall control flow.
 
 Team Members:
-  - Karim Ashraf (ID: 20240419) / All-B
+  - Karim Ashraf (ID: 20240419) / S26
       ==> Invert, Rotate, Add Frame, Blur, TV Noise, Skewing ,
           GUI
-  - Eyad Hatem (ID: 20240097) / All-B
+  - Eyad Hatem (ID: 20240097) / S26
       ==> Grayscale, Merge, Darken & Lighten, Edge Detection,
           Sunlight, Purple Effect , Film , Motion Blur , Sepia ,
           Pencil Sketching , Undo last filter,  Menu System
@@ -1346,6 +1346,7 @@ int main() {
     }
     return 0;
 }
+
 
 
 
