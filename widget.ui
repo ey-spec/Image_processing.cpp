@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1198</width>
+    <height>607</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Widget</string>
+  </property>
+  <widget class="QPushButton" name="loadButton">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>570</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Load Image</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="save">
+   <property name="geometry">
+    <rect>
+     <x>1030</x>
+     <y>570</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="grayscaleButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>10</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Grayscale</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="blackandwhiteButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>10</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Black White</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invertButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>50</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Invert</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="mergeButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>50</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Merge</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="flipButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>90</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Flip</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="rotateButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>90</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="darkenButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>130</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Darken</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="lightenButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>130</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lighten</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cropButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>170</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Crop</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="frameButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>170</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Frame</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="blurButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>210</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Blur</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sunlightButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>290</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Sunlight</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="oilpaintingButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>290</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Oil painting</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="tvButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>250</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TV noise</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="purpleButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>330</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Purple</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="infraredButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>370</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Infrared</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="skewButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>330</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Skew</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="filmButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>370</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Film</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="motionblurButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>410</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Motion blur</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sepiaButton">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>410</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Sepia</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pencilButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>450</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pencil Sketch</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="undo">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>450</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>UNDO</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exit">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>570</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>EXIT</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="imageLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>941</width>
+     <height>531</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="edgeButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>210</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Edge Detect</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="resizeButton">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>250</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Resize</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
