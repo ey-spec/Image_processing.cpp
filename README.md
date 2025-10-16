@@ -96,5 +96,45 @@ The graphical interface was created using Qt Widgets and designed for simplicity
 
 ---
 
+> **Note:** The program loads images from the same directory where the executable file is located.  
+> You can also select any image manually using the "Load" button in the GUI.  
+
+---
+
+## **How to Run the Program**
+
+### **Option 1: Run from Qt Creator**
+1. Open the project using the `.pro` or `CMakeLists.txt` file.  
+2. Build the project by clicking the **Run** button.  
+3. The GUI window will open automatically.  
+4. Use the buttons to apply filters, undo, or save images.  
+
+### **Option 2: Run from Visual Studio Code**
+1. Open the folder in VS Code.  
+2. Press **Ctrl + Shift + B** to build and compile the executable.  
+3. Run the generated `.exe` file.  
+4. Make sure the image files are in the same folder as the executable.  
+
+---
+
+## **Undo Feature**
+Before each filter is applied, the program saves a backup copy of the current image.  
+You can restore the previous version anytime by pressing the **Undo** button.  
+
+---
+
+## **Future Enhancements**
+- Add live preview for filters before applying them.  
+- Support drag and drop image loading.  
+- Add AI-based filters such as background removal or style transfer.  
+
+---
+
+## **Conclusion**
+This project demonstrates how C++ and the Qt Framework can be combined to build a functional and user-friendly image editor.  
+It applies key OOP principles to ensure modularity, maintainability, and extensibility.  
+Each team member contributed to different parts of the project, resulting in a stable and organized application that supports a wide variety of image filters.  
+
+
 ## **File and Folder Setup**
 
