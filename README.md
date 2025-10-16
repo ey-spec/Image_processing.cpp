@@ -4,15 +4,14 @@ Course: CS213 – Object Oriented Programming
 
 Instructor: Dr. Mohamed El Ramly
 
-Section: All-B
 
 Members:
 
-Eyad Hatem – 20240097
+Eyad Hatem – 20240097/S26
 
-Sherif Ahmed – 20240277
+Sherif Ahmed – 20240277/All-B
 
-Karim Ashraf – 20240419
+Karim Ashraf – 20240419/S26
 
 Project Overview
 
